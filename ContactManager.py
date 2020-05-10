@@ -11,7 +11,10 @@ exit = False
 def agregar_contacto():
     input_nom = input("Ingrese nombre del nuevo contacto\n")
     input_tel = input("Ingrese telefono del nuevo contacto\n")
-    contactos[input_nom] = input_tel  
+    input_email = input("Ingrese el correo del nuevo contacto\n")
+    input_comp = input("Ingrese la empresa en la que trabaja el nuevo contacto\n")
+    input_extra = input("Ingrese informacion extra del nuevo contacto\n")
+    contactos[input_nom] = input_tel, input_email, input_comp, input_extra
 
 def buscar_contacto():
     input_nom = input("Ingrese nombre del contacto que quiere buscar\n")
