@@ -48,7 +48,7 @@ def ver_contactos():
 
 while not exit:
 
-    input_menu = int(input(" 1. Crear Contacto \n 2. Editar Contacto\n 3. Buscar Contacto\n 4. Eliminar Contacto\n5. Ver Contactos\n 6. Salir\n"))
+    input_menu = int(input(" 1. Agregar Contacto \n 2. Buscar Contacto\n 3. Listar Contacto\n 4. Eliminar Contacto\n 5. Llamar Contactos\n 6. Enviar mensaje a contacto\n 7. Enviar correo a contacto\n 8. Exportar Contactos"))
     if input_menu == 1:
         crear_contacto()
     if input_menu == 2:
@@ -59,5 +59,11 @@ while not exit:
         eliminar_contacto()
     if input_menu == 5:
         ver_contactos()
-    elif input_menu == 6:
+    if input_menu == 6:
+        ver_contactos()
+    if input_menu == 7:
+        ver_contactos()
+    if input_menu == 8:
+        ver_contactos()            
+    elif input_menu == 9:
         exit = True
