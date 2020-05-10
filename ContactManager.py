@@ -44,16 +44,16 @@ def eliminar_contacto():
         print("El contacto no existe, intentelo de nuevo\n")
 
 def llamar_contactos():
-    
+    print('Vamos a llamar')
 
 def enviar_mensaje_contactos():
-    
+    print('Vamos a llamar')
 
 def enviar_correo_contactos():
-    
+    print('Vamos a llamar')
 
 def exportar_contactos():
-    
+    print('Vamos a llamar')
 
 while not exit:
 
