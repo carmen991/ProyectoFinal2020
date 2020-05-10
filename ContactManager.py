@@ -1,9 +1,9 @@
 #Contact Book
 
-import pandas as pd
-url='http://demo7130536.mockable.io/contacts'
-contactos=pd.read_json(url)
-print(contactos)
+import urllib.request, json 
+with urllib.request.urlopen("http://demo7130536.mockable.io/contacts") as url:
+    data = json.loads(url.read().decode())
+    print(data)
 
 
 exit = False
