@@ -1,6 +1,10 @@
 #Contact Book
 
-contactos = {'Miranda Monterroso': '20190405'}
+import pandas as pd
+url='http://demo7130536.mockable.io/contacts'
+contactos=pd.read_json(url)
+print(contactos)
+
 
 exit = False
 
