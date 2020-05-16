@@ -2,7 +2,19 @@
 import urllib.request, json 
 import validators
 import sys
-contactos={}
+
+        
+def AgregarContactos(input_nom, input_tel, input_email,input_comp,input_extra,contactos):
+    """Agrega un nuevo contacto al diccionario con el input del nombre, apellido, telefono"""
+    key = letra(input_nom)
+    nestedDictionary = {"telefono":input_tel,"email":input_email,"company":input_comp,"extra":input_extra}
+    contactos[key] = nestedDictionary
+    return contactos
+def letra(input_nom):
+    """Crea el contactID, le da retur a key. Utiliza el nombre y apellido con lower"""
+    key=input_nom[0]
+    return key
+
 def agregar_contacto():
     while(True):
         input_nom = input("Ingrese nombre y apellido del nuevo contacto\n")
@@ -48,9 +60,7 @@ def agregar_contacto():
     respuesta=input("Desea ingresar informacion extra del nuevo contacto? (y/n) ").lower()
     if respuesta == "y" or respuesta == "yes":
         input_extra = input("Ingrese informacion extra del nuevo contacto\n")
-        return
-    else:
-        return  
+    AgregarContactos(input_nom,input_tel,input_email,input_comp,input_extra,contactos)    
     
 
 def buscar_contacto():
@@ -97,10 +107,11 @@ def exportar_contactos():
 
 
 def main():
+    contactos={}
     with urllib.request.urlopen("http://demo7130536.mockable.io/contacts") as url:
-        contactos = json.loads(url.read().decode())
-        print(json.dumps(contactos,indent=4))
-        exit = False
+            contactos = json.dumps(json.loads(url.read().decode()),indent=4)
+            print(contactos)
+            exit=False
 
     while not exit:
         input_menu = int(input(''' Bienvenido a su Contact Manager, seleccione una opcion:
