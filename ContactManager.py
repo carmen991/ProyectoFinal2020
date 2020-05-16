@@ -21,7 +21,7 @@ def agregar_contacto():
 
     while(True):
         input_tel = input("Ingrese telefono del nuevo contacto\n")
-        if validators.length(input_tel, min=8, max=8):
+        if input_tel.isdigit():
             break
 
         else:
