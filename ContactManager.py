@@ -5,19 +5,16 @@ import sys
 contactos={}
 def agregar_contacto():
     while(True):
-        input_nom = input("Ingrese nombre del nuevo contacto\n")
+        input_nom = input("Ingrese nombre y apellido del nuevo contacto\n")
         listaPalabras = input_nom.split()
         if len(listaPalabras) == 2:
             break
 
         else:
-            print("\nNombre invalido")
+            print("\nNombre invalido, vuelva a intentarlo")
+            print("\nEl contacto debe tener nombre y apellido")
 
-            opcion=input("Desea volver a intentarlo (y/n) ").lower()
-            if opcion == "y" or opcion == "yes":
-                continue
-            else:
-                break
+            continue
 
     while(True):
         input_tel = input("Ingrese telefono del nuevo contacto\n")
@@ -25,35 +22,35 @@ def agregar_contacto():
             break
 
         else:
-            print("\nNumero Invalido")
+            print("\nNumero Invalido, vuelva a intentarlo")
 
-            opcion=input("Desea volver a intentarlo (y/n) ").lower()
-            if opcion == "y" or opcion == "yes":
-                continue
-            else:
-                break
+            print("\nEl numero solo debe tener digitos")
+
+            continue
 
     while(True):
         input_email = input("Ingrese el correo del nuevo contacto\n")
         if validators.email(input_email):
             break
         else:
-            print("\nCorreo Invalido")
 
-            opcion=input("Desea volver a intentarlo (y/n) ").lower()
-            if opcion == "y" or opcion == "yes":
-                continue
-            else:
-                break
+            print("\nCorreo Invalido, vuelva a intentarlo")
 
+            print("\nEs necesario que ingrese correo")
+
+            continue
+
+    
     respuesta=input("Desea ingresar nombre de la empresa en la que trabaja el nuevo contacto? (y/n) ").lower()
     if respuesta == "y" or respuesta == "yes":
         input_comp = input("Ingrese la empresa en la que trabaja el nuevo contacto\n")
-          continue
+
+    respuesta=input("Desea ingresar informacion extra del nuevo contacto? (y/n) ").lower()
+    if respuesta == "y" or respuesta == "yes":
+        input_extra = input("Ingrese informacion extra del nuevo contacto\n")
+        return
     else:
-        break   
-    
-    input_extra = input("Ingrese informacion extra del nuevo contacto\n")
+        return  
     
 
 def buscar_contacto():
