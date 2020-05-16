@@ -1,12 +1,10 @@
 #Contact Book
 
 import urllib.request, json 
-with urllib.request.urlopen("http://demo7130536.mockable.io/contacts") as url:
-    data = json.loads(url.read().decode())
-    print(data)
 
 
-exit = False
+
+
 
 def agregar_contacto():
     input_nom = input("Ingrese nombre del nuevo contacto\n")
@@ -14,7 +12,7 @@ def agregar_contacto():
     input_email = input("Ingrese el correo del nuevo contacto\n")
     input_comp = input("Ingrese la empresa en la que trabaja el nuevo contacto\n")
     input_extra = input("Ingrese informacion extra del nuevo contacto\n")
-    contactos[input_nom] = input_tel, input_email, input_comp, input_extra
+    
 
 def buscar_contacto():
     input_nom = input("Ingrese nombre del contacto que quiere buscar\n")
@@ -58,24 +56,41 @@ def enviar_correo_contactos():
 def exportar_contactos():
     print('Vamos a llamar')
 
-while not exit:
 
-    input_menu = int(input(" 1. Agregar Contacto \n 2. Buscar Contacto\n 3. Listar Contacto\n 4. Eliminar Contacto\n 5. Llamar Contactos\n 6. Enviar mensaje a contacto\n 7. Enviar correo a contacto\n 8. Exportar Contactos"))
-    if input_menu == 1:
-        agregar_contacto()
-    if input_menu == 2:
-        buscar_contacto()
-    if input_menu == 3:
-        listar_contacto()
-    if input_menu == 4:
-        eliminar_contacto()
-    if input_menu == 5:
-        llamar_contactos()
-    if input_menu == 6:
-        enviar_mensaje_contactos()
-    if input_menu == 7:
-        enviar_correo_contactos()
-    if input_menu == 8:
-        exportar_contactos()            
-    elif input_menu == 9:
-        exit = True
+def main():
+    with urllib.request.urlopen("http://demo7130536.mockable.io/contacts") as url:
+        contactos = json.loads(url.read().decode())
+        print(json.dumps(contactos,indent=4))
+        exit = False
+
+    while not exit:
+        input_menu = int(input(''' Bienvenido a su Contact Manager, seleccione una opcion:
+                                   1. Agregar Contacto 
+                                   2. Buscar Contacto 
+                                   3. Listar Contacto 
+                                   4. Eliminar Contacto
+                                   5. Llamar Contactos 
+                                   6. Enviar mensaje a contacto 
+                                   7. Enviar correo a contacto 
+                                   8. Exportar Contactos\n'''))
+        if input_menu == 1:
+            agregar_contacto()
+        if input_menu == 2:
+            buscar_contacto()
+        if input_menu == 3:
+            listar_contacto()
+        if input_menu == 4:
+            eliminar_contacto()
+        if input_menu == 5:
+            llamar_contactos()
+        if input_menu == 6:
+            enviar_mensaje_contactos()
+        if input_menu == 7:
+            enviar_correo_contactos()
+        if input_menu == 8:
+            exportar_contactos()            
+        elif input_menu == 9:
+            exit = True
+
+if __name__ == "__main__":
+    main()            
