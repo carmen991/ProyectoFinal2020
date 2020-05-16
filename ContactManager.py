@@ -45,8 +45,14 @@ def agregar_contacto():
                 continue
             else:
                 break
-            
-    input_comp = input("Ingrese la empresa en la que trabaja el nuevo contacto\n")
+
+    respuesta=input("Desea ingresar nombre de la empresa en la que trabaja el nuevo contacto? (y/n) ").lower()
+    if respuesta == "y" or respuesta == "yes":
+        input_comp = input("Ingrese la empresa en la que trabaja el nuevo contacto\n")
+          continue
+    else:
+        break   
+    
     input_extra = input("Ingrese informacion extra del nuevo contacto\n")
     
 
