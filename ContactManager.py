@@ -9,19 +9,16 @@ def agregar_contacto():
     while(True):
         input_email = input("Ingrese el correo del nuevo contacto\n")
         if validators.email(input_email):
-            lista=input_email.split('@')
-            usuario=lista[0]
-            dominio=lista[1]
-            print(f"El correo fue '{input_email}'\n usuario: {usuario}\n dominio: {dominio}")
+            break
         else:
             print("\nCorreo Invalido")
 
-        opcion=input("Desea volver a intentarlo (y/n) ").lower()
-        if opcion == "y" or opcion == "yes":
-            continue
-        else:
-            print(f"\nGracias '{usuario}' por utilizar email-slicer")
-            sys.exit()
+            opcion=input("Desea volver a intentarlo (y/n) ").lower()
+            if opcion == "y" or opcion == "yes":
+                continue
+            else:
+                break
+            
     input_comp = input("Ingrese la empresa en la que trabaja el nuevo contacto\n")
     input_extra = input("Ingrese informacion extra del nuevo contacto\n")
     
