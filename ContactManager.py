@@ -4,8 +4,35 @@ import validators
 import sys
 contactos={}
 def agregar_contacto():
-    input_nom = input("Ingrese nombre del nuevo contacto\n")
-    input_tel = input("Ingrese telefono del nuevo contacto\n")
+    while(True):
+        input_nom = input("Ingrese nombre del nuevo contacto\n")
+        listaPalabras = input_nom.split()
+        if len(listaPalabras) == 2:
+            break
+
+        else:
+            print("\nNombre invalido")
+
+            opcion=input("Desea volver a intentarlo (y/n) ").lower()
+            if opcion == "y" or opcion == "yes":
+                continue
+            else:
+                break
+
+    while(True):
+        input_tel = input("Ingrese telefono del nuevo contacto\n")
+        if validators.length(input_tel, min=8, max=8):
+            break
+
+        else:
+            print("\nNumero Invalido")
+
+            opcion=input("Desea volver a intentarlo (y/n) ").lower()
+            if opcion == "y" or opcion == "yes":
+                continue
+            else:
+                break
+
     while(True):
         input_email = input("Ingrese el correo del nuevo contacto\n")
         if validators.email(input_email):
