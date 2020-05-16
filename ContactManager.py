@@ -1,11 +1,6 @@
 #Contact Book
-
 import urllib.request, json 
-
-
-
-
-
+contactos={}
 def agregar_contacto():
     input_nom = input("Ingrese nombre del nuevo contacto\n")
     input_tel = input("Ingrese telefono del nuevo contacto\n")
