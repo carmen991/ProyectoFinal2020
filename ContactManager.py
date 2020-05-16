@@ -1,21 +1,32 @@
 #Contact Book
-import urllib.request, json 
+import requests, json 
 import validators
 import sys
 
-        
-def AgregarContactos(input_nom, input_tel, input_email,input_comp,input_extra,contactos):
-    """Agrega un nuevo contacto al diccionario con el input del nombre, apellido, telefono"""
-    key = letra(input_nom)
-    nestedDictionary = {"telefono":input_tel,"email":input_email,"company":input_comp,"extra":input_extra}
-    contactos[key] = nestedDictionary
+def importar_dic(urlGet,contactos):
+    #Recibe contactos de un URL y los ingresa al diccionario
+    getResponse=requests.get(urlGet)
+    dataGet=getResponse.json()
+    contactos = dataGet  
     return contactos
+
+def AgregarContactos(input_nom, input_tel, input_email,input_comp,input_extra,contactos):
+    #Con esto agregamos contactos nuevos al diccionario
+    diccionario_nombre={}
+    key = letra(input_nom)
+    key2=input_nom
+    nestedDictionary = {"telefono":input_tel,"email":input_email,"company":input_comp,"extra":input_extra}
+    diccionario_nombre[key2] = nestedDictionary
+    contactos[key]=diccionario_nombre
+    return print(contactos)
+
 def letra(input_nom):
-    """Crea el contactID, le da retur a key. Utiliza el nombre y apellido con lower"""
-    key=input_nom[0]
+    #Tomamos primera letra del nombre
+    nombre=input_nom.upper()
+    key=nombre[0]
     return key
 
-def agregar_contacto():
+def agregar_contacto(contactos):
     while(True):
         input_nom = input("Ingrese nombre y apellido del nuevo contacto\n")
         listaPalabras = input_nom.split()
@@ -56,11 +67,16 @@ def agregar_contacto():
     respuesta=input("Desea ingresar nombre de la empresa en la que trabaja el nuevo contacto? (y/n) ").lower()
     if respuesta == "y" or respuesta == "yes":
         input_comp = input("Ingrese la empresa en la que trabaja el nuevo contacto\n")
+    else:
+        input_comp=""    
 
     respuesta=input("Desea ingresar informacion extra del nuevo contacto? (y/n) ").lower()
     if respuesta == "y" or respuesta == "yes":
         input_extra = input("Ingrese informacion extra del nuevo contacto\n")
-    AgregarContactos(input_nom,input_tel,input_email,input_comp,input_extra,contactos)    
+    else:
+        input_extra=""    
+    AgregarContactos(input_nom,input_tel,input_email,input_comp,input_extra,contactos)
+
     
 
 def buscar_contacto():
@@ -108,10 +124,10 @@ def exportar_contactos():
 
 def main():
     contactos={}
-    with urllib.request.urlopen("http://demo7130536.mockable.io/contacts") as url:
-            contactos = json.dumps(json.loads(url.read().decode()),indent=4)
-            print(contactos)
-            exit=False
+    urlGet="http://demo7130536.mockable.io/contacts"
+    contactos = importar_dic(urlGet,contactos)
+    print(contactos)
+    exit=False
 
     while not exit:
         input_menu = int(input(''' Bienvenido a su Contact Manager, seleccione una opcion:
@@ -124,7 +140,7 @@ def main():
                                    7. Enviar correo a contacto 
                                    8. Exportar Contactos\n'''))
         if input_menu == 1:
-            agregar_contacto()
+            agregar_contacto(contactos)
         if input_menu == 2:
             buscar_contacto()
         if input_menu == 3:
