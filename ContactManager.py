@@ -88,18 +88,12 @@ def buscar_contacto():
     else:
         print("El contacto no existe, intentelo de nuevo\n")
 
-def listar_contacto():
-    input_nom = input("Ingrese nombre del contacto que quiere editar\n")
-    input_tel = input("Ingrese nuevo telefono del contacto\n")
 
-    existe = input_nom in contactos
+def listar_contacto(contactos):
+    for key, value in contactos.items():
+      print(key, value)
 
-    if existe:
-        contactos[input_nom] = input_tel
-    else:
-        print("El contacto no existe, intentelo de nuevo\n")
-
-def eliminar_contacto():
+def eliminar_contacto(contactos):
     input_nom = input("Ingrese nombre del contacto que quiere eliminar\n")
     existe = input_nom in contactos
 
@@ -142,11 +136,11 @@ def main():
         if input_menu == 1:
             agregar_contacto(contactos)
         if input_menu == 2:
-            buscar_contacto()
+            buscar_contacto(contactos)
         if input_menu == 3:
-            listar_contacto()
+            listar_contacto(contactos)
         if input_menu == 4:
-            eliminar_contacto()
+            eliminar_contacto(contactos)
         if input_menu == 5:
             llamar_contactos()
         if input_menu == 6:
