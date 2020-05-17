@@ -79,19 +79,24 @@ def agregar_contacto(contactos):
 
     
 
-def buscar_contacto():
-    input_nom = input("Ingrese nombre del contacto que quiere buscar\n")
-    existe = input_nom in contactos
+def buscar_contacto(contactos,values_searched):
+    '''searches contact by given list of keys and list of values, returns false if not found'''
+    Is_seached_contact = False
+    #se compara cada contacto en directorio
+    for contact_index in range(len(contactos)):
+        contact = contactos[contact_index]
+        Is_seached_contact = True
+        return print(contact)
+    return False
 
-    if existe:
-        print(input_nom + " " + contactos[input_nom])
-    else:
-        print("El contacto no existe, intentelo de nuevo\n")
 
-
-def listar_contacto(contactos):
-    for key, value in contactos.items():
-      print(key, value)
+def listar_contacto(contactos,indent=0):
+   for key, value in contactos.items():
+      print('\t' * indent + str(key))
+      if isinstance(value, dict):
+         listar_contacto(value, indent+1)
+      else:
+         print('\t' * (indent+1) + str(value))
 
 def eliminar_contacto(contactos):
     input_nom = input("Ingrese nombre del contacto que quiere eliminar\n")
@@ -136,7 +141,8 @@ def main():
         if input_menu == 1:
             agregar_contacto(contactos)
         if input_menu == 2:
-            buscar_contacto(contactos)
+            values_searched=input("Ingrese el contacto que desea buscar")
+            buscar_contacto(contactos,values_searched)
         if input_menu == 3:
             listar_contacto(contactos)
         if input_menu == 4:
