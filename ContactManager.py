@@ -18,7 +18,7 @@ def AgregarContactos(input_nom, input_tel, input_email,input_comp,input_extra,co
     nestedDictionary = {"telefono":input_tel,"email":input_email,"company":input_comp,"extra":input_extra}
     diccionario_nombre[key2] = nestedDictionary
     contactos[key]=diccionario_nombre
-    return print(contactos)
+    return print("Contacto agregado exitosamente\n")
 
 def letra(input_nom):
     #Tomamos primera letra del nombre
@@ -76,18 +76,34 @@ def agregar_contacto(contactos):
     else:
         input_extra=""    
     AgregarContactos(input_nom,input_tel,input_email,input_comp,input_extra,contactos)
+     
 
-    
+def buscar_contacto(contactos):
+    input_nom = input("Ingrese nombre del contacto que quiere buscar\n")
+    nombre=input_nom.upper()
+    letra=nombre[0]
+    existe = letra in contactos
+    if existe:
+        letra2=contactos[letra]
+        listSplit = input_nom.split(',')
+        verifiedSplit = []
+        invalidSplit = []
+        iteration1 = 0
+        for items in listSplit:
+            if listSplit[iteration1] in letra2:
+                verifiedSplit.append(listSplit[iteration1])
+            else:
+                invalidSplit.append(listSplit[iteration1])
+            iteration1 = iteration1 + 1
+        
+        if len(invalidSplit) != 0:
+            print('El contacto {} parece no existir en la lista de contactos'.format(', '.join(invalidSplit)))
+            print("Asegúrese de haber escrito el contacto correctamente")
 
-def buscar_contacto(contactos,values_searched):
-    '''searches contact by given list of keys and list of values, returns false if not found'''
-    Is_seached_contact = False
-    #se compara cada contacto en directorio
-    for contact_index in range(len(contactos)):
-        contact = contactos[contact_index]
-        Is_seached_contact = True
-        return print(contact)
-    return False
+        elif len(invalidSplit) == 0:
+            print('Contacto {} encontrado'.format(', '.join(verifiedSplit)))
+    else:
+        print("El contacto no existe, intentelo de nuevo\n")
 
 
 def listar_contacto(contactos,indent=0):
@@ -125,7 +141,6 @@ def main():
     contactos={}
     urlGet="http://demo7130536.mockable.io/contacts"
     contactos = importar_dic(urlGet,contactos)
-    print(contactos)
     exit=False
 
     while not exit:
@@ -142,7 +157,7 @@ def main():
             agregar_contacto(contactos)
         if input_menu == 2:
             values_searched=input("Ingrese el contacto que desea buscar")
-            buscar_contacto(contactos,values_searched)
+            buscar_contacto(contactos)
         if input_menu == 3:
             listar_contacto(contactos)
         if input_menu == 4:
