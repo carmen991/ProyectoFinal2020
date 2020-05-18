@@ -2,6 +2,7 @@
 import requests, json 
 import validators
 import sys
+import time
 
 def importar_dic(urlGet,contactos):
     #Recibe contactos de un URL y los ingresa al diccionario
@@ -76,7 +77,7 @@ def agregar_contacto(contactos):
     else:
         input_extra=""    
     AgregarContactos(input_nom,input_tel,input_email,input_comp,input_extra,contactos)
-     
+
 
 def buscar_contacto(contactos):
     input_nom = input("Ingrese nombre del contacto que quiere buscar\n")
@@ -124,8 +125,28 @@ def eliminar_contacto(contactos):
     else:
         print("El contacto no existe, intentelo de nuevo\n")
 
-def llamar_contactos():
-    print('Vamos a llamar')
+def llamar_contactos(contactos):
+    #Llama al contacto ingresado
+    input_nom = input("Ingrese nombre del contacto que quiere llamar\n")
+    nombre=input_nom.upper()
+    letra=nombre[0]
+    existe = letra in contactos
+    if existe:
+      letra2=contactos[letra]
+      if  input_nom in letra2:
+          key = letra2[input_nom] #se ingresa el ID para que llame a la persona que desea 
+          print("Llamando a: {}, con el numero: {}".format(input_nom, key['telefono'])) 
+          for restantes in range(3, 0, -1): #contador de en retroseso de 60 segundos 
+              sys.stdout.write("\r")
+              sys.stdout.write("{:2d} Segundos restantes".format(restantes)) #se utilizo sys,stdout porque se pueden combinar int y string
+              sys.stdout.flush()
+              time.sleep(1)
+          sys.stdout.write("\rSe realizo la llamada con éxito!!            \n")
+      else:
+          print('\nEl contacto está mal escrito o no existe.')
+    else:
+        print("El contacto no existe, intentelo de nuevo\n")
+
 
 def enviar_mensaje_contactos():
     print('Vamos a llamar')
@@ -156,20 +177,19 @@ def main():
         if input_menu == 1:
             agregar_contacto(contactos)
         if input_menu == 2:
-            values_searched=input("Ingrese el contacto que desea buscar")
             buscar_contacto(contactos)
         if input_menu == 3:
             listar_contacto(contactos)
         if input_menu == 4:
             eliminar_contacto(contactos)
         if input_menu == 5:
-            llamar_contactos()
+            llamar_contactos(contactos)
         if input_menu == 6:
-            enviar_mensaje_contactos()
+            enviar_mensaje_contactos(contactos)
         if input_menu == 7:
-            enviar_correo_contactos()
+            enviar_correo_contactos(contactos)
         if input_menu == 8:
-            exportar_contactos()            
+            exportar_contactos(contactos)            
         elif input_menu == 9:
             exit = True
 
