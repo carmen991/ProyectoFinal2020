@@ -173,7 +173,7 @@ def enviar_mensaje_contactos(contactos):
           print("Asegúrese de haber escrito el contacto correctamente")
 
       elif len(invalidSplit) == 0:
-          print('Enviando mensaje a: {}'.format(', '.join(verifiedSplit)),' \n Mensaje: ', input_msg) 
+          print('Enviando mensaje a: {}, con el numero: {}'.format(', '.join(verifiedSplit), letra2[input_nom]['telefono']), ' \n Mensaje: ', input_msg) 
           for restantes in range(3, 0, -1): #contador de en retroseso de 60 segundos 
               sys.stdout.write("\r")
               sys.stdout.write("{:2d} Segundos restantes".format(restantes)) #se utilizo sys,stdout porque se pueden combinar int y string
@@ -184,8 +184,40 @@ def enviar_mensaje_contactos(contactos):
         print("El contacto no existe, intentelo de nuevo\n")
 
 
-def enviar_correo_contactos():
-    print('Vamos a llamar')
+def enviar_correo_contactos(contactos):
+    input_nom = input("Ingrese nombre del contacto al que quiere enviar mensaje\n")
+    input_asunto = input("Ingrese el asunto de su correo\n")
+    input_msg = input("Ingrese su mensaje\n")
+    nombre=input_nom.upper()
+    letra=nombre[0]
+    existe = letra in contactos
+    if existe:
+      letra2=contactos[letra]
+      listSplit = input_nom.split(',')
+      verifiedSplit = []
+      invalidSplit = []
+      iteration1 = 0
+      for items in listSplit:
+          if listSplit[iteration1] in letra2:
+              verifiedSplit.append(listSplit[iteration1])
+          else:
+              invalidSplit.append(listSplit[iteration1])
+          iteration1 = iteration1 + 1
+      
+      if len(invalidSplit) != 0:
+          print('Contacto {} parece no existir en la lista de contactos'.format(', '.join(invalidSplit)))
+          print("Asegúrese de haber escrito el contacto correctamente")
+
+      elif len(invalidSplit) == 0:
+          print('Enviando mensaje a: {}\n Correo: {}'.format(', '.join(verifiedSplit), letra2[input_nom]['email']), ' \n Asunto: ', input_asunto, ' \n Mensaje: ', input_msg) 
+          for restantes in range(3, 0, -1): #contador de en retroseso de 60 segundos 
+              sys.stdout.write("\r")
+              sys.stdout.write("{:2d} Segundos restantes".format(restantes)) #se utilizo sys,stdout porque se pueden combinar int y string
+              sys.stdout.flush()
+              time.sleep(1)
+          sys.stdout.write("\rSe envio el correo exitosamente!!\n")
+    else:
+        print("El contacto no existe, intentelo de nuevo\n")
 
 def exportar_contactos():
     print('Vamos a llamar')
