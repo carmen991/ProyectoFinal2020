@@ -106,9 +106,8 @@ def buscar_contacto(contactos):
     else:
         print("El contacto no existe, intentelo de nuevo\n")
 
-
 def listar_contacto(contactos,indent=0):
-   for key, value in contactos.items():
+   for key, value in sorted(contactos.items()):
       print('\t' * indent + str(key))
       if isinstance(value, dict):
          listar_contacto(value, indent+1)
