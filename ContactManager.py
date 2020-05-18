@@ -3,6 +3,7 @@ import requests, json
 import validators
 import sys
 import time
+import pandas as pd
 
 def importar_dic(urlGet,contactos):
     #Recibe contactos de un URL y los ingresa al diccionario
@@ -226,13 +227,39 @@ def enviar_correo_contactos(contactos):
     else:
         print("El contacto no existe, intentelo de nuevo\n")
 
-def exportar_contactos():
-    print('Vamos a llamar')
+def exportar_contactos(contactos):
+
+    # initiate the data list
+    name_list, phone_list, email_list, company_list, extra_list = [], [], [], [], []
+
+    # extract the data from JSON format
+    for contacto in sorted(contactos):
+        nombres = contactos[contacto]
+        for nombre in nombres:
+            name_list.append(nombre)
+            phone_list.append(nombres[nombre]["telefono"])
+            email_list.append(nombres[nombre]["email"])
+            extra_list.append(nombres[nombre]["extra"])
+            company_list.append(nombres[nombre]["company"])
+
+
+    # Convert List to pandas DataFrame
+    Nuevo_dataFrame = pd.DataFrame([name_list, phone_list, email_list, company_list, extra_list]).transpose()
+
+    # Set the columns of DataFrame
+    Nuevo_dataFrame.columns = ["Contact name", "phone", "mail", "company", "extra"]
+
+    # Output the DataFrame as CSV file
+    Nuevo_dataFrame.to_csv("contact_manager.csv", index=0)
+    print("Los contactos han sido exportados exitosamente :)")
+
 
 
 def main():
     contactos={}
-    urlGet="http://demo7130536.mockable.io/contacts"
+    #urlGet="http://demo7130536.mockable.io/contacts" 
+    #Esta era la URL de Prueba 
+    urlGet="http://demo7130536.mockable.io/final-contacts-100"
     contactos = importar_dic(urlGet,contactos)
     exit=False
 
@@ -245,7 +272,8 @@ def main():
                                    5. Llamar Contactos 
                                    6. Enviar mensaje a contacto 
                                    7. Enviar correo a contacto 
-                                   8. Exportar Contactos\n'''))
+                                   8. Exportar Contactos
+                                   9. Salir\n'''))
         if input_menu == 1:
             agregar_contacto(contactos)
         if input_menu == 2:
