@@ -116,14 +116,22 @@ def listar_contacto(contactos,indent=0):
          print('\t' * (indent+1) + str(value))
 
 def eliminar_contacto(contactos):
-    input_nom = input("Ingrese nombre del contacto que quiere eliminar\n")
-    existe = input_nom in contactos
-
+    input_nom = input("Ingrese nombre del contacto que desea eliminar\n")
+    nombre=input_nom.upper()
+    letra=nombre[0]
+    existe = letra in contactos
     if existe:
-        del contactos[input_nom]
+      letra2=contactos[letra]
+      existe2=input_nom in letra2
+      if existe2:
+        del letra2[input_nom]
         print("Contacto eliminado con exito!!\n")
+      else:
+        print('\nEl contacto está mal escrito o no existe.')
     else:
         print("El contacto no existe, intentelo de nuevo\n")
+    
+    return contactos
 
 def llamar_contactos(contactos):
     #Llama al contacto ingresado
