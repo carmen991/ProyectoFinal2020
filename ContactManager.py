@@ -4,6 +4,7 @@ import validators
 import sys
 import time
 import pandas as pd
+import emoji
 
 def importar_dic(urlGet,contactos):
     #Recibe contactos de un URL y los ingresa al diccionario
@@ -143,7 +144,8 @@ def llamar_contactos(contactos):
       letra2=contactos[letra]
       if  input_nom in letra2:
           key = letra2[input_nom] #se ingresa el ID para que llame a la persona que desea 
-          print("Llamando a: {}, con el numero: {}".format(input_nom, key['telefono'])) 
+          print(emoji.emojize(":telephone_receiver:"))
+          print(" Llamando a: {}, con el numero: {}".format(input_nom, key['telefono']))
           for restantes in range(3, 0, -1): #contador de en retroseso de 60 segundos 
               sys.stdout.write("\r")
               sys.stdout.write("{:2d} Segundos restantes".format(restantes)) #se utilizo sys,stdout porque se pueden combinar int y string
@@ -181,6 +183,7 @@ def enviar_mensaje_contactos(contactos):
           print("Asegúrese de haber escrito el contacto correctamente")
 
       elif len(invalidSplit) == 0:
+          print(emoji.emojize(':envelope:'))
           print('Enviando mensaje a: {}, con el numero: {}'.format(', '.join(verifiedSplit), letra2[input_nom]['telefono']), ' \n Mensaje: ', input_msg) 
           for restantes in range(3, 0, -1): #contador de en retroseso de 60 segundos 
               sys.stdout.write("\r")
@@ -217,6 +220,7 @@ def enviar_correo_contactos(contactos):
           print("Asegúrese de haber escrito el contacto correctamente")
 
       elif len(invalidSplit) == 0:
+          print(emoji.emojize(':e-mail:'))
           print('Enviando mensaje a: {}\n Correo: {}'.format(', '.join(verifiedSplit), letra2[input_nom]['email']), ' \n Asunto: ', input_asunto, ' \n Mensaje: ', input_msg) 
           for restantes in range(3, 0, -1): #contador de en retroseso de 60 segundos 
               sys.stdout.write("\r")
